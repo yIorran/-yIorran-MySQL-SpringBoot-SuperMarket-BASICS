@@ -24,7 +24,10 @@ Foco do projeto é ser o backend de um sistema de um supermercado, cujo as funç
  
  ### Como rodar o projeto localmente:
  
- Faça o clone: " *git clone https://github.com/yIorran/MySQL-SpringBoot-SuperMarket-BASICS.git* "
+ Faça o clone: 
+ ```
+ git clone https://github.com/yIorran/MySQL-SpringBoot-SuperMarket-BASICS.git
+ ```
  
  * Método get funcionários: 
  ```
@@ -33,12 +36,12 @@ Foco do projeto é ser o backend de um sistema de um supermercado, cujo as funç
  
  * Método put funcionários(atualizar): 
  ```
- localhost:8081/att/funcionario/{id}
+ localhost:8081/funcionario/attFunc/{id}
  ```
  
  * Método delete funcionários: 
  ```
- localhost:8081/del/{id}
+ localhost:8081/funcionario/{id}
  ```
  
  * Método adiciona funcionários: 
@@ -58,12 +61,12 @@ Foco do projeto é ser o backend de um sistema de um supermercado, cujo as funç
  
  * Método put produtos(atualizar): 
  ```
- localhost:8081/att/produto/{id}
+ localhost:8081/produto/attprod/{id}
  ```
  
  * Método delete produtos: 
  ```
- localhost:8081/deleteProd/{id}
+ localhost:8081/produto/{id}
  ```
  
  ### (Comunicação feita através do Postman via JSON)
