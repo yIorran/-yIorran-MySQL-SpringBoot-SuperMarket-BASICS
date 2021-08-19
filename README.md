@@ -24,7 +24,10 @@ Foco do projeto é ser o backend de um sistema de um supermercado, cujo as funç
  
  ### Como rodar o projeto localmente:
  
- Faça o clone: " *git clone https://github.com/yIorran/MySQL-SpringBoot-SuperMarket-BASICS.git* "
+ Faça o clone: 
+ ```
+ git clone https://github.com/yIorran/MySQL-SpringBoot-SuperMarket-BASICS.git
+ ```
  
  * Método get funcionários: 
  ```
