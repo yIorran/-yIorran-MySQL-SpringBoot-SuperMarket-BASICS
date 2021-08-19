@@ -7,12 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/funcionario")
@@ -37,5 +32,19 @@ public class FuncionarioController {
         return new ResponseEntity<Object>(repositoryGen.findAll(), HttpStatus.OK);
     }
 
+    @PutMapping("/attFunc/{id}")
+    public Funcionario atualizaFuncionario(@PathVariable("id") Integer id, @RequestBody Funcionario funcionario){
+        return attFuncionario(id, funcionario);
+    }
+
+    public Funcionario attFuncionario(Integer id, Funcionario funcionario) {
+        funcionario.setId(id);
+        return repositoryGen.save(funcionario);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public void deletarFuncionario(@PathVariable("id") Integer id){
+        repositoryGen.deleteById(id);
+    }
 
 }
