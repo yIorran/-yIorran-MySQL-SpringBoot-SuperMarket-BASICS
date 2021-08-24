@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -34,5 +35,28 @@ public class Funcionario {
     }
 
     public Funcionario(Integer matricula, Integer senha) {
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Funcionario that = (Funcionario) o;
+        return Objects.equals(Id, that.Id) && Objects.equals(nome, that.nome) && Objects.equals(matricula, that.matricula) && Objects.equals(senha, that.senha);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Id, nome, matricula, senha);
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" +
+                "Id=" + Id +
+                ", nome='" + nome + '\'' +
+                ", matricula=" + matricula +
+                ", senha=" + senha +
+                '}';
     }
 }
