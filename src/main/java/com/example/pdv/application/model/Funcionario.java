@@ -33,4 +33,6 @@ public class Funcionario {
         this.senha = senha;
     }
 
+    public Funcionario(Integer matricula, Integer senha) {
+    }
 }
