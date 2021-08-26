@@ -22,14 +22,14 @@ public class ProdutoController {
         repositoryGenP.save(products);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping
     public @ResponseBody
     ResponseEntity<Object> buscarProduct(){
         return new ResponseEntity<Object>(repositoryGenP.findAll(), HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deletarProdutos(@PathVariable("id") Integer id){
+    public void deletarProdutos(Integer id){
         repositoryGenP.deleteById(id);
     }
 

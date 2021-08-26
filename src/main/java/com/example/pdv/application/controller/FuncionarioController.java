@@ -14,11 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/funcionario")
 public class FuncionarioController {
 
-//    @Autowired
-//    LoginCaixaImpl loginCaixaImpl;
-//    @Autowired
-//    Funcionario funcionario;
-
     @Autowired
     FuncionarioRepository repositoryGen;
 
@@ -27,14 +22,13 @@ public class FuncionarioController {
         repositoryGen.save(funcionario);
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody
-    ResponseEntity<Object> buscarFuncionario(){
+    @GetMapping
+    public ResponseEntity<Object> buscarFuncionario(){
         return new ResponseEntity<Object>(repositoryGen.findAll(), HttpStatus.OK);
     }
 
     @PutMapping("/attFunc/{id}")
-    public Funcionario atualizaFuncionario(@PathVariable("id") Integer id, @RequestBody Funcionario funcionario){
+    public Funcionario atualizaFuncionario(Integer id, @RequestBody Funcionario funcionario){
         return attFuncionario(id, funcionario);
     }
 
@@ -44,7 +38,7 @@ public class FuncionarioController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public void deletarFuncionario(@PathVariable("id") Integer id){
+    public void deletarFuncionario(@PathVariable Integer id){
         repositoryGen.deleteById(id);
     }
 
