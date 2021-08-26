@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/produto")
+@RequestMapping("/produtos")
 public class ProdutoController {
 
     @Autowired
@@ -33,7 +33,7 @@ public class ProdutoController {
         repositoryGenP.deleteById(id);
     }
 
-    @PutMapping("/attprod/{id}")
+    @PutMapping("/{id}")
     public Produto atualizaProduto(@PathVariable("id") Integer id, @RequestBody Produto produto){
         return attProduto(id, produto);
     }

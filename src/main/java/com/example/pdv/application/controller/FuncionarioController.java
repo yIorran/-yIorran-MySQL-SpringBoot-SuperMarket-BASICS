@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/funcionario")
+@RequestMapping("/funcionarios")
 public class FuncionarioController {
 
     @Autowired
@@ -27,7 +27,7 @@ public class FuncionarioController {
         return new ResponseEntity<Object>(repositoryGen.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/attFunc/{id}")
+    @PutMapping("/{id}")
     public Funcionario atualizaFuncionario(Integer id, @RequestBody Funcionario funcionario){
         return attFuncionario(id, funcionario);
     }

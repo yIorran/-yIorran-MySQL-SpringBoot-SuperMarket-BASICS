@@ -1,6 +1,7 @@
 package com.example.pdv.application.model;
 
 import com.example.pdv.application.repository.FuncionarioRepository;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,12 +43,12 @@ public class Funcionario {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Funcionario that = (Funcionario) o;
-        return Objects.equals(Id, that.Id) && Objects.equals(nome, that.nome) && Objects.equals(matricula, that.matricula) && Objects.equals(senha, that.senha);
+        return Objects.equals(nome, that.nome) && Objects.equals(matricula, that.matricula) && Objects.equals(senha, that.senha);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(Id, nome, matricula, senha);
+        return Objects.hash(nome, matricula, senha);
     }
 
     @Override

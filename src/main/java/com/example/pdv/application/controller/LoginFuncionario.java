@@ -3,11 +3,11 @@ package com.example.pdv.application.controller;
 import com.example.pdv.application.model.Funcionario;
 import com.example.pdv.application.repository.FuncionarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.stream.Collectors;
 
-import java.util.List;
-import java.util.Set;
+import javax.security.auth.message.AuthException;
 
 @RestController
 @RequestMapping("login")
@@ -42,20 +42,57 @@ URL: localhost:8081/login/{id}
 
  */
     @PostMapping
-    public void loginFuncionario(@RequestBody Funcionario funcionario) {
+    public void loginFuncionario(@RequestBody Funcionario funcionario)  {
+
+        try {
 //        Iterable<Funcionario> repositoryGenLocal = repositoryGen.findAll().forEach(funcionario1 -> funcionario);
-        if (funcionario.hashCode() == repositoryGen.findById(funcionario.getId()).hashCode()) {
-//            if (funcionario.hashCode() == repositoryGen.hashCode()) {
+            if (funcionario.hashCode() == repositoryGen.findById(funcionario.getId()).hashCode()) {
                 System.out.println("Login success");
-                System.out.println("Bem vindo " + funcionario.getNome() + "!");
+                System.out.println("Bem vindo(a) " + funcionario.getNome() + "!");
             } else {
                 System.out.println("Login failed");
-//            System.out.println(repositoryGen.findAll().toString());
-                System.out.println(funcionario.hashCode());
-                System.out.println(repositoryGen.hashCode());
-                System.out.println(repositoryGen);
-//            System.out.println(repositoryGen.findById(4));
+//                System.out.println(funcionario.hashCode());
+//                System.out.println(repositoryGen.hashCode());
+                System.out.println("Usuário ou senha inválidos");
+                throw new AuthException("Usuário ou senha inválidos");
             }
+        } catch (AuthException e) {
+            e.getMessage();
         }
-
     }
+    }
+//    Optional<Funcionario> funcionarioExistente;
+//        for (int index = 0; index < repositoryGen.count(); index++) {
+//        funcionarioExistente = repositoryGen.findById(index);
+//        if (funcionario.hashCode() == repositoryGen.findById(funcionario.getId()).hashCode()) {
+////            if (funcionario.hashCode() == repositoryGen.hashCode()) {
+//        System.out.println("Login success");
+//        System.out.println("Bem vindo " + funcionario.getNome() + "!");
+//        } else {
+//        System.out.println("Login failed");
+////            System.out.println(repositoryGen.findAll().toString());
+//        System.out.println(funcionario.hashCode());
+//        System.out.println(repositoryGen.hashCode());
+//        System.out.println(repositoryGen);
+////            System.out.println(repositoryGen.findById(4));
+//        }
+//        break;
+//        }
+//____________________________________________________________________________________________________________________
+//    Optional<Funcionario> funcionarioExistente;
+//        for (int index = 0; index < repositoryGen.count(); index++) {
+//        funcionarioExistente = repositoryGen.findById(index);
+//        if (funcionarioExistente.isPresent()) {
+////            if (funcionario.hashCode() == repositoryGen.hashCode()) {
+//        System.out.println("Login success");
+//        System.out.println("Bem vindo " + funcionario.getNome() + "!");
+//        } else {
+//        System.out.println("Login failed");
+////            System.out.println(repositoryGen.findAll().toString());
+//        System.out.println(funcionario.hashCode());
+//        System.out.println(repositoryGen.hashCode());
+//        System.out.println(repositoryGen);
+////            System.out.println(repositoryGen.findById(4));
+//        }
+//        break;
+//        }
