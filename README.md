@@ -31,44 +31,72 @@ Foco do projeto é ser o backend de um sistema de um supermercado, cujo as funç
  
  * Método get funcionários: 
  ```
- localhost:8081/funcionario
+ localhost:8081/funcionarios
  ```
  
  * Método put funcionários(atualizar): 
  ```
- localhost:8081/funcionario/attFunc/{id}
+ localhost:8081/funcionarios/{matricula}
  ```
  
  * Método delete funcionários: 
  ```
- localhost:8081/funcionario/{id}
+ localhost:8081/funcionarios/{matricula}
  ```
  
  * Método adiciona funcionários: 
  ```
- localhost:8081/funcionario
+ localhost:8081/funcionarios
  ```
  
  * Método get produtos: 
  ```
- localhost:8081/produto
+ localhost:8081/produtos
  ```
  
   * Método adiciona produtos: 
  ```
- localhost:8081/produto
+ localhost:8081/produtos
  ```
  
  * Método put produtos(atualizar): 
  ```
- localhost:8081/produto/attprod/{id}
+ localhost:8081/produtos/attprod/{id}
  ```
  
  * Método delete produtos: 
  ```
- localhost:8081/produto/{id}
+ localhost:8081/produtos/{id}
  ```
  
+ ## Método Login implementado
+ 
+  * Método get LoginFuncionarios: 
+ ```
+ localhost:8081/login
+ ```
+ 
+ * Método adiciona LoginFuncionarios: 
+ ```
+ localhost:8081/login/save
+ ```
+ 
+ * Método atualiza LoginFuncionarios: 
+ ```
+ localhost:8081/login/{matricula}
+ ```
+ 
+  * Método delete LoginFuncionarios: 
+ ```
+ localhost:8081/login/{matricula}
+ ```
+ 
+ * Método login LoginFuncionarios(usar verbo POST informando matricula e senha no corpo JSON): 
+ ```
+ localhost:8081/login
+ ```
+ 
+
  ### (Comunicação feita através do Postman via JSON)
  
  
