@@ -38,7 +38,7 @@ import javax.security.auth.message.AuthException;
             return repositoryGen.save(loginFuncionario);
         }
 
-        @DeleteMapping(value = "/{id}")
+        @DeleteMapping(value = "/{matricula}")
         public void deletarFuncionario(@PathVariable Integer matricula) {
             repositoryGen.deleteById(matricula);
         }
@@ -66,6 +66,8 @@ import javax.security.auth.message.AuthException;
         Nova rota adicionada: /login
 
         Próximo passo: Sincronizar os 2 bancos de dados para que haja a sincronicidade de dados
+
+        FEITO 27/08
          */
 
 

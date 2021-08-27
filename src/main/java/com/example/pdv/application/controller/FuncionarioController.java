@@ -1,8 +1,10 @@
 package com.example.pdv.application.controller;
 
 import com.example.pdv.application.model.Funcionario;
+import com.example.pdv.application.model.LoginFuncionarioEntitie;
 import com.example.pdv.application.repository.FuncionarioRepository;
 
+import com.example.pdv.application.repository.LoginFuncionarioEntitieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,9 +19,14 @@ public class FuncionarioController {
     @Autowired
     FuncionarioRepository repositoryGen;
 
+    @Autowired
+    LoginFuncionarioEntitieRepository loginFuncionarioEntitieRepository;
+
     @PostMapping
     public void salvarFuncionario(@RequestBody Funcionario funcionario){
+        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionario.getMatricula(), funcionario.getSenha());
         repositoryGen.save(funcionario);
+        loginFuncionarioEntitieRepository.save(loginFuncionarioEntitie);
     }
 
     @GetMapping
