@@ -21,11 +21,9 @@ import java.util.Objects;
 public class Funcionario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer Id;
+    private Integer matricula;
 
     private String nome;
-    private Integer matricula;
     private Integer senha;
 
 
@@ -54,9 +52,8 @@ public class Funcionario {
     @Override
     public String toString() {
         return "Funcionario{" +
-                "Id=" + Id +
+                "matricula=" + matricula +
                 ", nome='" + nome + '\'' +
-                ", matricula=" + matricula +
                 ", senha=" + senha +
                 '}';
     }

@@ -27,13 +27,13 @@ public class FuncionarioController {
         return new ResponseEntity<Object>(repositoryGen.findAll(), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public Funcionario atualizaFuncionario(Integer id, @RequestBody Funcionario funcionario){
-        return attFuncionario(id, funcionario);
+    @PutMapping("/{matricula}")
+    public Funcionario atualizaFuncionario(@PathVariable Integer matricula, @RequestBody Funcionario funcionario){
+        return attFuncionario(matricula, funcionario);
     }
 
-    public Funcionario attFuncionario(Integer id, Funcionario funcionario) {
-        funcionario.setId(id);
+    public Funcionario attFuncionario(Integer matricula, Funcionario funcionario) {
+        funcionario.setMatricula(matricula);
         return repositoryGen.save(funcionario);
     }
 
