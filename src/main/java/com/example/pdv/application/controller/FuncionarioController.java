@@ -7,7 +7,6 @@ import com.example.pdv.application.repository.FuncionarioRepository;
 import com.example.pdv.application.repository.LoginFuncionarioEntitieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,10 +22,16 @@ public class FuncionarioController {
     LoginFuncionarioEntitieRepository loginFuncionarioEntitieRepository;
 
     @PostMapping
-    public void salvarFuncionario(@RequestBody Funcionario funcionario){
-        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionario.getMatricula(), funcionario.getSenha());
-        repositoryGen.save(funcionario);
-        loginFuncionarioEntitieRepository.save(loginFuncionarioEntitie);
+    public ResponseEntity<Funcionario> salvaFuncionario(@RequestBody Funcionario funcionario){
+        if(repositoryGen.existsById(funcionario.getMatricula())){
+            System.out.println("Matricula já existente");
+            ResponseEntity.badRequest().build();
+        }
+        else {
+            repositoryGen.save(funcionario);
+            return ResponseEntity.ok().body(funcionario);
+        }
+        return ResponseEntity.unprocessableEntity().build();
     }
 
     @GetMapping
@@ -35,18 +40,22 @@ public class FuncionarioController {
     }
 
     @PutMapping("/{matricula}")
-    public Funcionario atualizaFuncionario(@PathVariable Integer matricula, @RequestBody Funcionario funcionario){
+    public ResponseEntity<Object> atualizaFuncionario(@PathVariable Integer matricula, @RequestBody Funcionario funcionario){
         return attFuncionario(matricula, funcionario);
     }
 
-    public Funcionario attFuncionario(Integer matricula, Funcionario funcionario) {
-        funcionario.setMatricula(matricula);
-        return repositoryGen.save(funcionario);
+    public ResponseEntity<Object> attFuncionario(Integer matricula, Funcionario funcionario) {
+        if(repositoryGen.findById(matricula).isPresent()) {
+            funcionario.setMatricula(matricula);
+            repositoryGen.save(funcionario);
+            return ResponseEntity.ok().body(funcionario);
+        }
+        return ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void deletarFuncionario(@PathVariable Integer id){
-        repositoryGen.deleteById(id);
+    @DeleteMapping(value = "/{matricula}")
+    public void deletarFuncionario(@PathVariable Integer matricula){
+        repositoryGen.deleteById(matricula);
     }
 
 }

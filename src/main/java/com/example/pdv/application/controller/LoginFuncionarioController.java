@@ -1,8 +1,6 @@
 package com.example.pdv.application.controller;
 
-import com.example.pdv.application.model.Funcionario;
 import com.example.pdv.application.model.LoginFuncionarioEntitie;
-import com.example.pdv.application.repository.FuncionarioRepository;
 import com.example.pdv.application.repository.LoginFuncionarioEntitieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +17,16 @@ import javax.security.auth.message.AuthException;
         LoginFuncionarioEntitieRepository repositoryGen;
 
         @PostMapping("/save")
-        public void salvarFuncionario(@RequestBody LoginFuncionarioEntitie loginFuncionario) {
-            repositoryGen.save(loginFuncionario);
+        public ResponseEntity<LoginFuncionarioEntitie> salvarFuncionario(@RequestBody LoginFuncionarioEntitie loginFuncionario) {
+            if(repositoryGen.existsById(loginFuncionario.getMatricula())){
+                System.out.println("Matricula já existente");
+                ResponseEntity.badRequest().build();
+            }
+            else {
+                repositoryGen.save(loginFuncionario);
+                return ResponseEntity.ok().body(loginFuncionario);
+            }
+            return ResponseEntity.unprocessableEntity().build();
         }
 
         @GetMapping
@@ -28,14 +34,18 @@ import javax.security.auth.message.AuthException;
             return new ResponseEntity<Object>(repositoryGen.findAll(), HttpStatus.OK);
         }
 
-        @PutMapping("/attFunc/{matricula}")
-        public LoginFuncionarioEntitie atualizaFuncionario(@PathVariable Integer matricula, @RequestBody LoginFuncionarioEntitie loginFuncionario) {
+        @PutMapping("/{matricula}")
+        public ResponseEntity<Object> atualizaFuncionario(@PathVariable Integer matricula, @RequestBody LoginFuncionarioEntitie loginFuncionario) {
             return attFuncionario(matricula, loginFuncionario);
         }
 
-        public LoginFuncionarioEntitie attFuncionario(Integer matricula, LoginFuncionarioEntitie loginFuncionario) {
-            loginFuncionario.setMatricula(matricula);
-            return repositoryGen.save(loginFuncionario);
+        public ResponseEntity<Object> attFuncionario(Integer matricula, LoginFuncionarioEntitie loginFuncionario) {
+            if(repositoryGen.findById(matricula).isPresent()) {
+                loginFuncionario.setMatricula(matricula);
+                repositoryGen.save(loginFuncionario);
+                return ResponseEntity.ok().body(loginFuncionario);
+            }
+            return ResponseEntity.notFound().build();
         }
 
         @DeleteMapping(value = "/{matricula}")
@@ -45,10 +55,15 @@ import javax.security.auth.message.AuthException;
 
         @PostMapping
         public void loginFuncionario(@RequestBody LoginFuncionarioEntitie loginFuncionario) {
-            if (validaLogin(loginFuncionario)) {
-                System.out.println("Login success");
-            } else {
-                System.out.println("Login failed");
+            try {
+                if (validaLogin(loginFuncionario)) {
+                    System.out.println("Login success");
+                } else {
+                    System.out.println("Login failed, please check your login and password and try again.");
+                    throw new AuthException("Login failed, please check your login and password and try again.");
+                }
+            } catch (AuthException e) {
+                e.getMessage();
             }
         }
 
