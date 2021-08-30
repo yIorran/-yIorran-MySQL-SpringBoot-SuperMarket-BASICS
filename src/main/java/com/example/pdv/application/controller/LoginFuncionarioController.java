@@ -28,12 +28,10 @@ import javax.security.auth.message.AuthException;
             }
             return ResponseEntity.unprocessableEntity().build();
         }
-
         @GetMapping
         public ResponseEntity<Object> buscarFuncionario() {
             return new ResponseEntity<Object>(repositoryGen.findAll(), HttpStatus.OK);
         }
-
         @PutMapping("/{matricula}")
         public ResponseEntity<Object> atualizaFuncionario(@PathVariable Integer matricula, @RequestBody LoginFuncionarioEntitie loginFuncionario) {
             return attFuncionario(matricula, loginFuncionario);

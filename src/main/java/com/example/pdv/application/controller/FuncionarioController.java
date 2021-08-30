@@ -33,7 +33,6 @@ public class FuncionarioController {
         }
         return ResponseEntity.unprocessableEntity().build();
     }
-
     @GetMapping
     public ResponseEntity<Object> buscarFuncionario(){
         return new ResponseEntity<Object>(repositoryGen.findAll(), HttpStatus.OK);
