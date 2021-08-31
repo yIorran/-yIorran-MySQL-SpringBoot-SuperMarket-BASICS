@@ -23,12 +23,14 @@ public class FuncionarioController {
 
     @PostMapping
     public ResponseEntity<Funcionario> salvaFuncionario(@RequestBody Funcionario funcionario){
+        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionario.getMatricula(), funcionario.getSenha());
         if(repositoryGen.existsById(funcionario.getMatricula())){
             System.out.println("Matricula já existente");
             ResponseEntity.badRequest().build();
         }
         else {
             repositoryGen.save(funcionario);
+            loginFuncionarioEntitieRepository.save(loginFuncionarioEntitie);
             return ResponseEntity.ok().body(funcionario);
         }
         return ResponseEntity.unprocessableEntity().build();
