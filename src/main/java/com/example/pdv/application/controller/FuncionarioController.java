@@ -56,7 +56,6 @@ public class FuncionarioController {
 
     @DeleteMapping(value = "/{matricula}")
     public ResponseEntity<Funcionario> deletarFuncionario(@PathVariable Integer matricula){
-        Funcionario funcionario = new Funcionario();
         repositoryGen.deleteById(matricula);
         return ResponseEntity.ok().build();
     }
