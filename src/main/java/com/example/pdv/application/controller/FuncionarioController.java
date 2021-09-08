@@ -46,9 +46,11 @@ public class FuncionarioController {
     }
 
     public ResponseEntity<Object> attFuncionario(Integer matricula, Funcionario funcionario) {
+        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionario.getMatricula(), funcionario.getSenha());
         if(repositoryGen.findById(matricula).isPresent()) {
             funcionario.setMatricula(matricula);
             repositoryGen.save(funcionario);
+            loginFuncionarioEntitieRepository.save(loginFuncionarioEntitie);
             return ResponseEntity.ok().body(funcionario);
         }
         return ResponseEntity.notFound().build();
