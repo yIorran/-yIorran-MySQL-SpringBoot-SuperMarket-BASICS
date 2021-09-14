@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.example.pdv.application.model.Funcionario;
+import com.example.pdv.application.model.FuncionarioEntitie;
 
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @NoArgsConstructor
 @Component
-public class Caixa extends Funcionario {
+public class Caixa extends FuncionarioEntitie {
 
 
 

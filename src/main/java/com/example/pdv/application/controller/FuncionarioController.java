@@ -1,6 +1,6 @@
 package com.example.pdv.application.controller;
 
-import com.example.pdv.application.model.Funcionario;
+import com.example.pdv.application.model.FuncionarioEntitie;
 import com.example.pdv.application.model.LoginFuncionarioEntitie;
 import com.example.pdv.application.repository.FuncionarioRepository;
 
@@ -22,16 +22,16 @@ public class FuncionarioController {
     LoginFuncionarioEntitieRepository loginFuncionarioEntitieRepository;
 
     @PostMapping
-    public ResponseEntity<Funcionario> salvaFuncionario(@RequestBody Funcionario funcionario){
-        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionario.getMatricula(), funcionario.getSenha());
-        if(repositoryGen.existsById(funcionario.getMatricula())){
+    public ResponseEntity<FuncionarioEntitie> salvaFuncionario(@RequestBody FuncionarioEntitie funcionarioEntitie){
+        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionarioEntitie.getMatricula(), funcionarioEntitie.getSenha());
+        if(repositoryGen.existsById(funcionarioEntitie.getMatricula())){
             System.out.println("Matricula já existente");
             ResponseEntity.badRequest().build();
         }
         else {
-            repositoryGen.save(funcionario);
+            repositoryGen.save(funcionarioEntitie);
             loginFuncionarioEntitieRepository.save(loginFuncionarioEntitie);
-            return ResponseEntity.ok().body(funcionario);
+            return ResponseEntity.ok().body(funcionarioEntitie);
         }
         return ResponseEntity.unprocessableEntity().build();
     }
@@ -41,23 +41,23 @@ public class FuncionarioController {
     }
 
     @PutMapping("/{matricula}")
-    public ResponseEntity<Object> atualizaFuncionario(@PathVariable Integer matricula, @RequestBody Funcionario funcionario){
-        return attFuncionario(matricula, funcionario);
+    public ResponseEntity<Object> atualizaFuncionario(@PathVariable Integer matricula, @RequestBody FuncionarioEntitie funcionarioEntitie){
+        return attFuncionario(matricula, funcionarioEntitie);
     }
 
-    public ResponseEntity<Object> attFuncionario(Integer matricula, Funcionario funcionario) {
-        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionario.getMatricula(), funcionario.getSenha());
+    public ResponseEntity<Object> attFuncionario(Integer matricula, FuncionarioEntitie funcionarioEntitie) {
+        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionarioEntitie.getMatricula(), funcionarioEntitie.getSenha());
         if(repositoryGen.findById(matricula).isPresent()) {
-            funcionario.setMatricula(matricula);
-            repositoryGen.save(funcionario);
+            funcionarioEntitie.setMatricula(matricula);
+            repositoryGen.save(funcionarioEntitie);
             loginFuncionarioEntitieRepository.save(loginFuncionarioEntitie);
-            return ResponseEntity.ok().body(funcionario);
+            return ResponseEntity.ok().body(funcionarioEntitie);
         }
         return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping(value = "/{matricula}")
-    public ResponseEntity<Funcionario> deletarFuncionario(@PathVariable Integer matricula){
+    public ResponseEntity<FuncionarioEntitie> deletarFuncionario(@PathVariable Integer matricula){
         repositoryGen.deleteById(matricula);
         return ResponseEntity.ok().build();
     }

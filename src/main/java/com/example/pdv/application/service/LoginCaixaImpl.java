@@ -1,11 +1,11 @@
 package com.example.pdv.application.service;
 
-import com.example.pdv.application.model.Funcionario;
+import com.example.pdv.application.model.FuncionarioEntitie;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class LoginCaixaImpl extends Funcionario implements LoginCaixa {
+public class LoginCaixaImpl extends FuncionarioEntitie implements LoginCaixa {
 
 
     @Override

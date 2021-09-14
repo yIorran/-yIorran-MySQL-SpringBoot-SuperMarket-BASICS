@@ -1,24 +1,20 @@
 package com.example.pdv.application.model;
 
-import com.example.pdv.application.repository.FuncionarioRepository;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Objects;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-public class Funcionario {
+public class FuncionarioEntitie {
 
     @Id
     private Integer matricula;
@@ -27,20 +23,20 @@ public class Funcionario {
     private Integer senha;
 
 
-    public Funcionario(String nome, Integer matricula, Integer senha) {
+    public FuncionarioEntitie(String nome, Integer matricula, Integer senha) {
         this.nome = nome;
         this.matricula = matricula;
         this.senha = senha;
     }
 
-    public Funcionario(Integer matricula, Integer senha) {
+    public FuncionarioEntitie(Integer matricula, Integer senha) {
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Funcionario that = (Funcionario) o;
+        FuncionarioEntitie that = (FuncionarioEntitie) o;
         return Objects.equals(nome, that.nome) && Objects.equals(matricula, that.matricula) && Objects.equals(senha, that.senha);
     }
 

@@ -1,8 +1,8 @@
 package com.example.pdv.application.repository;
 
-import com.example.pdv.application.model.Funcionario;
+import com.example.pdv.application.model.FuncionarioEntitie;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface FuncionarioRepository extends CrudRepository<Funcionario, Object> {
+public interface FuncionarioRepository extends JpaRepository<FuncionarioEntitie, Object> {
 }

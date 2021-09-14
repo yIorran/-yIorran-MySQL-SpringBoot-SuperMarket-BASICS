@@ -1,6 +1,8 @@
 package com.example.pdv.application.controller;
 
+import com.example.pdv.application.model.FuncionarioEntitie;
 import com.example.pdv.application.model.LoginFuncionarioEntitie;
+import com.example.pdv.application.repository.FuncionarioRepository;
 import com.example.pdv.application.repository.LoginFuncionarioEntitieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,14 +18,19 @@ import javax.security.auth.message.AuthException;
         @Autowired
         LoginFuncionarioEntitieRepository repositoryGen;
 
+        @Autowired
+        FuncionarioRepository repositoryGenFunc;
+
         @PostMapping("/save")
         public ResponseEntity<LoginFuncionarioEntitie> salvarFuncionario(@RequestBody LoginFuncionarioEntitie loginFuncionario) {
+            FuncionarioEntitie funcionarioEntitie = new FuncionarioEntitie(null, loginFuncionario.getMatricula(), loginFuncionario.getSenha());
             if(repositoryGen.existsById(loginFuncionario.getMatricula())){
                 System.out.println("Matricula já existente");
                 ResponseEntity.badRequest().build();
             }
             else {
                 repositoryGen.save(loginFuncionario);
+                repositoryGenFunc.save(funcionarioEntitie);
                 return ResponseEntity.ok().body(loginFuncionario);
             }
             return ResponseEntity.unprocessableEntity().build();
@@ -74,15 +81,5 @@ import javax.security.auth.message.AuthException;
             }
             return decisao;
         }
-
-        /*
-        Nova rota adicionada: /login
-
-        Próximo passo: Sincronizar os 2 bancos de dados para que haja a sincronicidade de dados
-
-        FEITO 27/08
-         */
-
-
     }
 

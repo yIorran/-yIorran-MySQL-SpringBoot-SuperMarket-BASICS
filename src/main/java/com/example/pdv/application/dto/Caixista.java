@@ -1,6 +1,6 @@
 package com.example.pdv.application.dto;
 
-import com.example.pdv.application.model.Funcionario;
+import com.example.pdv.application.model.FuncionarioEntitie;
 import com.example.pdv.application.service.LoginCaixa;
 
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Caixista extends Funcionario implements LoginCaixa {
+public class Caixista extends FuncionarioEntitie implements LoginCaixa {
 
     @Override
     public boolean validaLogin(Integer login, Integer senha) {
