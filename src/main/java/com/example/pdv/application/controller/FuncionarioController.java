@@ -21,45 +21,9 @@ public class FuncionarioController {
     @Autowired
     LoginFuncionarioEntitieRepository loginFuncionarioEntitieRepository;
 
-    @PostMapping
-    public ResponseEntity<FuncionarioEntitie> salvaFuncionario(@RequestBody FuncionarioEntitie funcionarioEntitie){
-        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionarioEntitie.getMatricula(), funcionarioEntitie.getSenha());
-        if(repositoryGen.existsById(funcionarioEntitie.getMatricula())){
-            System.out.println("Matricula já existente");
-            ResponseEntity.badRequest().build();
-        }
-        else {
-            repositoryGen.save(funcionarioEntitie);
-            loginFuncionarioEntitieRepository.save(loginFuncionarioEntitie);
-            return ResponseEntity.ok().body(funcionarioEntitie);
-        }
-        return ResponseEntity.unprocessableEntity().build();
-    }
+
     @GetMapping
     public ResponseEntity<Object> buscarFuncionario(){
         return new ResponseEntity<Object>(repositoryGen.findAll(), HttpStatus.OK);
     }
-
-    @PutMapping("/{matricula}")
-    public ResponseEntity<Object> atualizaFuncionario(@PathVariable Integer matricula, @RequestBody FuncionarioEntitie funcionarioEntitie){
-        return attFuncionario(matricula, funcionarioEntitie);
-    }
-
-    public ResponseEntity<Object> attFuncionario(Integer matricula, FuncionarioEntitie funcionarioEntitie) {
-        LoginFuncionarioEntitie loginFuncionarioEntitie = new LoginFuncionarioEntitie(funcionarioEntitie.getMatricula(), funcionarioEntitie.getSenha());
-        if(repositoryGen.findById(matricula).isPresent()) {
-            funcionarioEntitie.setMatricula(matricula);
-            repositoryGen.save(funcionarioEntitie);
-            loginFuncionarioEntitieRepository.save(loginFuncionarioEntitie);
-            return ResponseEntity.ok().body(funcionarioEntitie);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @DeleteMapping(value = "/{matricula}")
-    public ResponseEntity<FuncionarioEntitie> deletarFuncionario(@PathVariable Integer matricula){
-        repositoryGen.deleteById(matricula);
-        return ResponseEntity.ok().build();
-    }
-
 }

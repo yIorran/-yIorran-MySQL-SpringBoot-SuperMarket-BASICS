@@ -1,11 +1,10 @@
 package com.example.pdv.application.controller;
 
-import com.example.pdv.application.model.Produto;
+import com.example.pdv.application.model.ProdutoEntitie;
 import com.example.pdv.application.repository.ProdutoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,7 +17,7 @@ public class ProdutoController {
     ProdutoRepository repositoryGenP;
 
     @PostMapping
-    public void salvarProduto(@RequestBody Produto products){
+    public void salvarProduto(@RequestBody ProdutoEntitie products){
         repositoryGenP.save(products);
     }
 
@@ -34,12 +33,12 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public Produto atualizaProduto(@PathVariable("id") Integer id, @RequestBody Produto produto){
-        return attProduto(id, produto);
+    public ProdutoEntitie atualizaProduto(@PathVariable("id") Integer id, @RequestBody ProdutoEntitie produtoEntitie){
+        return attProduto(id, produtoEntitie);
     }
 
-    public Produto attProduto(Integer id, Produto produto) {
-        produto.setId(id);
-        return repositoryGenP.save(produto);
+    public ProdutoEntitie attProduto(Integer id, ProdutoEntitie produtoEntitie) {
+        produtoEntitie.setId(id);
+        return repositoryGenP.save(produtoEntitie);
     }
 }
