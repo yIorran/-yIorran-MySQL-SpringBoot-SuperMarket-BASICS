@@ -7,13 +7,7 @@ import com.example.pdv.application.repository.LoginFuncionarioEntitieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/login")
 @Service
 public class CadastraLoginFuncionario {
 
@@ -23,8 +17,7 @@ public class CadastraLoginFuncionario {
     @Autowired
     FuncionarioRepository repositoryGenFunc;
 
-    @PostMapping("/save")
-    public ResponseEntity<LoginFuncionarioEntitie> salvarFuncionario(@RequestBody LoginFuncionarioEntitie loginFuncionario) {
+    public ResponseEntity<LoginFuncionarioEntitie> salvarFuncionario(LoginFuncionarioEntitie loginFuncionario) {
         FuncionarioEntitie funcionarioEntitie = new FuncionarioEntitie(null, loginFuncionario.getMatricula(),
                 loginFuncionario.getSenha());
         if(repositoryGen.existsById(loginFuncionario.getMatricula())){

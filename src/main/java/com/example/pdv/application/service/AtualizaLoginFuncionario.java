@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/login")
 @Service
 public class AtualizaLoginFuncionario {
 
@@ -20,8 +18,6 @@ public class AtualizaLoginFuncionario {
     @Autowired
     LoginFuncionarioEntitieRepository loginFuncionarioEntitieRepository;
 
-
-    @PutMapping("/{matricula}")
     public ResponseEntity<Object> atualizaFuncionario(@PathVariable Integer matricula, @RequestBody
             LoginFuncionarioEntitie loginFuncionario) {
         return attFuncionario(matricula, loginFuncionario);
@@ -31,6 +27,7 @@ public class AtualizaLoginFuncionario {
         FuncionarioEntitie funcionarioEntitie = new FuncionarioEntitie(null,loginFuncionario.getMatricula(), loginFuncionario.getSenha());
         if(loginFuncionarioEntitieRepository.findById(matricula).isPresent() && repositoryGen.findById(matricula).isPresent()) {
             funcionarioEntitie.setMatricula(matricula);
+            funcionarioEntitie.setNome(repositoryGen.findById(matricula).get().getNome());
             loginFuncionario.setMatricula(matricula);
             loginFuncionarioEntitieRepository.save(loginFuncionario);
             repositoryGen.save(funcionarioEntitie);

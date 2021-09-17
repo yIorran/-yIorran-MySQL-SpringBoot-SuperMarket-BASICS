@@ -7,10 +7,7 @@ import com.example.pdv.application.repository.LoginFuncionarioEntitieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/funcionarios")
 @Service
 public class AtualizaFuncionario {
 
@@ -20,9 +17,8 @@ public class AtualizaFuncionario {
     @Autowired
     LoginFuncionarioEntitieRepository loginFuncionarioEntitieRepository;
 
-    @PutMapping("/{matricula}")
-    public ResponseEntity<Object> atualizaFuncionario(@PathVariable Integer matricula,
-                                                      @RequestBody FuncionarioEntitie funcionarioEntitie){
+    public ResponseEntity<Object> atualizaFuncionario(Integer matricula,
+                                                      FuncionarioEntitie funcionarioEntitie){
         return attFuncionario(matricula, funcionarioEntitie);
     }
 
